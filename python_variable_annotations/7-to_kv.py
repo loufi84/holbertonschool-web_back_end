@@ -6,7 +6,7 @@ string and the square of a number
 from typing import Union, Tuple
 
 
-def to_kev(k: str, v: Union[int, float]) -> Tuple[str, float]:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """
         Takes a string k and an int or float v, returns a tuple with k and
         the square of v
