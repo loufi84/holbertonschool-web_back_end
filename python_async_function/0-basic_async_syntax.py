@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 This module provides an async coroutine that wait and return a random delay
 """
