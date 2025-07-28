@@ -5,7 +5,7 @@ This module provides a method that returns the sum of floats or integers
 from typing import List, Union
 
 
-def sum_mixed_list(mxd_lst: List[Union[float, int]]) -> float:
+def sum_mixed_list(mxd_lst: List[Union[int, float]]) -> float:
     """
     This method returns the sum of all elements of the list input_list
     """
