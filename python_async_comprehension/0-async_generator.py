@@ -9,7 +9,7 @@ from typing import AsyncGenerator
 
 async def async_generator() -> AsyncGenerator[float, None]:
     """
-    The method
+    The said method
     """
     for _ in range(10):
         await asyncio.sleep(1)
