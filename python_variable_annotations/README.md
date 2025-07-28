@@ -1,0 +1,1 @@
+The repo about variable annotations and variable declarations in Python
