@@ -2,14 +2,14 @@
 """
 This module contains a method
 """
-from typing import Sequence, List
+from typing import Sequence, List, Any
 
 
-def zoom_array(lst: Sequence[int], factor: int = 2) -> List[int]:
+def zoom_array(lst: Sequence[Any], factor: int = 2) -> List[Any]:
     """
     The said method
     """
-    zoomed_in: List[int] = [
+    zoomed_in: List[Any] = [
         item for item in lst
         for i in range(factor)
     ]
