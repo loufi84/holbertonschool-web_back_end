@@ -2,10 +2,10 @@
 """
 This module contains a method
 """
-from typing import Tuple, List
+from typing import Sequence, List
 
 
-def zoom_array(lst: Tuple[int, ...], factor: int = 2) -> List[int]:
+def zoom_array(lst: Sequence[int], factor: int = 2) -> List[int]:
     """
     The said method
     """
