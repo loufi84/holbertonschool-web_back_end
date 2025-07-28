@@ -5,7 +5,7 @@ This module contains a method
 from typing import Tuple, List, Any
 
 
-def zoom_array(lst: Tuple[Any, ...], factor: int = 2) -> List:
+def zoom_array(lst: Tuple, factor: int = 2) -> List:
     """
     The said method
     """
