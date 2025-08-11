@@ -13,7 +13,7 @@ def update_topics(mongo_collection, name, topics):
         name: The name of the school
         topics: The topics to add
     """
-    updated = mongo_collection.update_one(
+    updated = mongo_collection.update_many(
         {"name": name},
         {"$set": {"topics": topics}}
     )
