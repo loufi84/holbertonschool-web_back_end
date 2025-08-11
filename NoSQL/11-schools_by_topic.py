@@ -12,4 +12,4 @@ def schools_by_topic(mongo_collection, topic):
         mongo_collection: The collection to target.
         topic: The topic to search
     """
-    return list(mongo_collection.find({"topic": topic}))
+    return list(mongo_collection.find({"topics": topic}))
