@@ -1,0 +1,2 @@
+// This file contains the command to list all documents with a specified pattern in the collection school
+db.school.find(name="Holberton school")
