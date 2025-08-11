@@ -1,2 +1,2 @@
 // This file will uses or creates a DB called my_db
-us my_db
+use my_db
