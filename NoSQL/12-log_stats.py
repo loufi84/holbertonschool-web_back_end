@@ -19,7 +19,7 @@ def log_stats():
     print("Methods:")
     for method in methods:
         count = logs_collection.count_documents({"method": method})
-        print(f"    method {method}: {count}")
+        print(f"\tmethod {method}: {count}")
 
     status_checks = logs_collection.count_documents({
         "method": "GET",
