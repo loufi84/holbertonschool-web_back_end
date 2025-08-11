@@ -20,7 +20,7 @@ def main():
     print("Methods:")
     for method in methods:
         count = logs.count_documents({"method": method})
-        print(f"\tmethod {method}: {count}")
+        print(f"    method {method}: {count}")
 
     status_checks = logs.count_documents({"method": "GET", "path": "/status"})
     print(f"{status_checks} status check")
