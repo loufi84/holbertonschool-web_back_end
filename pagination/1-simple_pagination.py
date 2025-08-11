@@ -29,11 +29,19 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """
+        This method will get the specified items in the specified range, using
+        index_range.
+        Args:
+            page: The requested page to retrieve
+            page_size: The number of items per page
+        """
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
         start, end = index_range(page, page_size)
         data = self.dataset()
         return data[start:end]
+
 
 def index_range(page, page_size):
     """
