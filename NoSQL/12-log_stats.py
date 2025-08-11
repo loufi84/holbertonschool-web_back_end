@@ -10,7 +10,7 @@ def main():
     """
     The method to provide the stats of logs stored in MongoDB
     """
-    client = MongoClient('mongobd://127.0.0.1:27017')
+    client = MongoClient('mongodb://localhost:27017')
     db = client.logs
     nginx = db.nginx
 
