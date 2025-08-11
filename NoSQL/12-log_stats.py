@@ -4,27 +4,29 @@ Module for providing stats about Nginx logs stored in MongoDB
 """
 from pymongo import MongoClient
 
-if __name__ == "__main__":
-    # Connect to MongoDB
-    client = MongoClient('mongodb://localhost:27017')
-    nginx_collection = client.logs.nginx
 
-    # Get counts
-    number = nginx_collection.count_documents({})
-    number_get = nginx_collection.count_documents({"method": "GET"})
-    number_post = nginx_collection.count_documents({"method": "POST"})
-    number_put = nginx_collection.count_documents({"method": "PUT"})
-    number_patch = nginx_collection.count_documents({"method": "PATCH"})
-    number_delete = nginx_collection.count_documents({"method": "DELETE"})
-    number_status = nginx_collection.count_documents(
-        {"method": "GET", "path": "/status"})
+def log_stats():
+    """
+    The method that provides stats about Nginx logs stored in MongoDB.
+    """
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    logs_collection = client.logs.nginx
 
-    # Print results in the exact format
-    print("{} logs".format(number))
+    total_logs = logs_collection.count_documents({})
+    print(f"{total_logs} logs")
+
+    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print("Methods:")
-    print("\tmethod GET: {}".format(number_get))
-    print("\tmethod POST: {}".format(number_post))
-    print("\tmethod PUT: {}".format(number_put))
-    print("\tmethod PATCH: {}".format(number_patch))
-    print("\tmethod DELETE: {}".format(number_delete))
-    print("{} status check".format(number_status))
+    for method in methods:
+        count = logs_collection.count_documents({"method": method})
+        print(f"\tmethod {method}: {count}")
+
+    status_checks = logs_collection.count_documents({
+        "method": "GET",
+        "path": "/status"
+    })
+    print(f"{status_checks} status check")
+
+
+if __name__ == "__main__":
+    log_stats()
