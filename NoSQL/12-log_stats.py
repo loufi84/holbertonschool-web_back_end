@@ -10,7 +10,7 @@ def main():
     """
     The method to provide the stats of logs stored in MongoDB
     """
-    client = MongoClient()
+    client = MongoClient('mongobd;://127.0.0.1:27017')
     db = client.logs
     nginx = db.nginx
 
@@ -26,6 +26,8 @@ def main():
 
     status_checks = nginx.count_documents({"method": "GET", "path": "/status"})
     print(f"{status_checks} status check")
+
+    client.close()
 
 if __name__ == "__main__":
     main()
