@@ -3,7 +3,6 @@
 This module contains a script that returns all students sorted by average
 score.
 """
-import pymongo
 
 
 def top_students(mongo_collection):
@@ -12,4 +11,14 @@ def top_students(mongo_collection):
     Args:
         mongo_collection: The collection to check
     """
-    return mongo_collection.find().sort([("averageScore", pymongo.DESCENDING)])
+    pipeline = [
+        {
+            "$addFields": {
+                "averageScore": {"$avg": "$topics.score"}
+            }
+        },
+        {
+            "$sort": {"averageScore": -1}
+        }
+    ]
+    return list(mongo_collection.aggregate(pipeline))
