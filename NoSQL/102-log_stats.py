@@ -31,7 +31,7 @@ def log_stats():
     })
     print(f"{status_checks} status check")
 
-    # Top 10 IPs by frequency
+    # Top 10 IP by frequency
     pipeline = [
         {"$group": {"_id": "$ip", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
