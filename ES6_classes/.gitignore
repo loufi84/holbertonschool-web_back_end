@@ -1,4 +1,1 @@
-*.json
 *-main.js
-babel.config.js
-.eslintrc.js
