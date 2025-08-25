@@ -1,0 +1,1 @@
+Repo about promises for async functions in JS ES6
