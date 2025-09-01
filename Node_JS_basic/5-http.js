@@ -1,55 +1,50 @@
 const http = require('http');
 const fs = require('fs');
+const countStudents = require('./3-read_file_async');
 
-const port = 1245;
-
-function countStudents(path) {
-  return fs.readFile(path, 'utf8')
-    .then((file) => {
-      const lines = file.trim().split('\n');
-      const students = lines.slice(1).filter((line) => line.trim() !== '');
-
-      let output = `Number of students: ${students.length}\n`;
-
-      const groups = {};
-
-      for (const line of students) {
-        const parts = line.split(',');
-        const firstname = parts[0];
-        const field = parts[3];
-
-        if (!groups[field]) {
-          groups[field] = [];
-        }
-        groups[field].push(firstname);
-      }
-
-      for (const field in groups) {
-        if (Object.prototype.hasOwnProperty.call(groups, field)) {
-          const list = groups[field].join(', ');
-          output += `Number of students in ${field}: ${groups[field].length}. List: ${list}\n`;
-        }
-      }
-
-      return output.trim();
-    })
-    .catch(() => {
-      throw new Error('Cannot load the database');
-    });
-}
+const database = process.argv[2];
 
 const app = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setH$('Content-Type', 'text/plain');
-
+  res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
+    res.statusCode = 200;
     res.end('Hello Holberton School!');
-  } else if (req.url === '/sutdents') {
+  } else if (req.url === '/students') {
+    res.statusCode = 200;
     res.write('This is the list of our students\n');
-    const database = process.argv[2];
     countStudents(database)
-      .then((output) => {
-        res.end(output);
+      .then(() => {
+        fs.readFile(database, 'utf8', (err, data) => {
+          if (err) {
+            res.end('Cannot load the database');
+            return;
+          }
+          const lines = data.split('\n').filter((line) => line.trim() !== '');
+          if (lines.length === 0) {
+            res.end('Number of students: 0');
+            return;
+          }
+          const students = lines.slice(1);
+          const fields = {};
+          let total = 0;
+          for (const line of students) {
+            if (line.trim() !== '') {
+              const parts = line.split(',');
+              if (parts.length >= 4) {
+                const firstname = parts[0].trim();
+                const field = parts[3].trim();
+                if (!fields[field]) fields[field] = [];
+                fields[field].push(firstname);
+                total += 1;
+              }
+            }
+          }
+          res.write(`Number of students: ${total}\n`);
+          for (const [field, names] of Object.entries(fields)) {
+            res.write(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}\n`);
+          }
+          res.end();
+        });
       })
       .catch(() => {
         res.end('Cannot load the database');
@@ -60,5 +55,6 @@ const app = http.createServer((req, res) => {
   }
 });
 
-app.listen(port);
+app.listen(1245);
+
 module.exports = app;
